@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Aduneer builds small tools, follows interesting questions, and keeps learning along the way. Explore projects and the work behind them."
+    />
+    <meta name="theme-color" content="#f3efe6" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Aduneer — Build. Explore. Figure it out." />
+    <meta
+      property="og:description"
+      content="Build. Learn. Repeat. Projects, questions, and the work behind them."
+    />
+    <meta property="og:url" content="https://aduneer.github.io/" />
+    <meta property="og:image" content="https://aduneer.github.io/assets/aduneer-social-teal-1200.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Aduneer's teal robot beside the words Build Learn Repeat" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://aduneer.github.io/" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/adwaita-sans.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="assets/aero-hero-1280.webp"
+      as="image"
+      type="image/webp"
+      imagesrcset="assets/aero-hero-640.webp 640w, assets/aero-hero-960.webp 960w, assets/aero-hero-1280.webp 1280w, assets/aero-hero-1672.webp 1672w"
+      imagesizes="100vw"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+    <title>Aduneer — Build. Explore. Figure it out.</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="nav-shell">
+        <a class="brand" href="#home" aria-label="Aduneer home">
+          <img
+            class="brand-mark"
+            src="assets/brand-mark-teal.webp"
+            width="120"
+            height="180"
+            alt=""
+          />
+          <span class="brand-name">Aduneer</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-controls="primary-navigation"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav
+          class="site-nav"
+          id="primary-navigation"
+          aria-label="Primary navigation"
+        >
+          <a href="#home" aria-current="location">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="learning.html">Learning</a>
+          <a href="#notes">Notes</a>
+          <a href="#about-dialog" data-dialog-open="about-dialog">About</a>
+          <a
+            class="external-link"
+            href="https://github.com/Aduneer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+            <svg viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M2.5 9.5 9 3M4 2.5h5.5V8" />
+            </svg>
+            <span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </nav>
+      </div>
+      <div class="level-track" data-level-track aria-hidden="true">
+        <div class="level-track-inner">
+          <span class="level-track-fill" data-track-fill></span>
+          <span class="level-stop" style="--stop: 33%"><i>01</i></span>
+          <span class="level-stop" style="--stop: 66%"><i>02</i></span>
+          <span class="level-finish">NEXT LEVEL ↗</span>
+          <span class="mascot-runner" data-runner><img src="assets/mascot-runner-teal.webp" width="807" height="900" alt="" /></span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="home" data-nav-section aria-labelledby="hero-title">
+        <div class="hero-media" aria-hidden="true">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/aero-hero-640.webp 640w, assets/aero-hero-960.webp 960w, assets/aero-hero-1280.webp 1280w, assets/aero-hero-1672.webp 1672w"
+              sizes="100vw"
+            />
+            <img
+              src="assets/aero-hero-960.jpg"
+              srcset="assets/aero-hero-640.jpg 640w, assets/aero-hero-960.jpg 960w, assets/aero-hero-1280.jpg 1280w, assets/aero-hero-1672.jpg 1672w"
+              sizes="100vw"
+              width="1672"
+              height="941"
+              alt=""
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
+        </div>
+        <div class="hero-pointer-light" aria-hidden="true"></div>
+        <div class="hero-pixels" data-hero-pixels aria-hidden="true"></div>
+
+        <div class="hero-content">
+          <p class="eyebrow">Ideas into things <span>—</span></p>
+          <h1 id="hero-title">
+            <span class="hero-title-line">Build. Explore.</span>
+            <span class="hero-title-line">
+              Figure it out. <span class="cursor" aria-hidden="true"></span>
+            </span>
+          </h1>
+          <p class="hero-intro">
+            I’m Aduneer, and I love learning. I build things to understand
+            them, then keep refining what I make and how I think. Every
+            project is a chance to get a little better.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#projects">
+              View my work
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M3 10h13M11 5l5 5-5 5" />
+              </svg>
+            </a>
+            <a
+              class="text-button"
+              href="learning.html"
+            >
+              How I keep learning
+            </a>
+          </div>
+          <p class="hero-trace"><abbr title="The 55 AA signature at the end of a legacy boot sector">55 AA</abbr><span>// still curious</span></p>
+        </div>
+        <div class="hero-core" data-hero-core>
+          <button class="hero-core-spin" type="button" aria-label="Spin the glass signal core. Drag, tap, or use the arrow keys" data-hero-spin data-sprite="assets/hero-core-sprite.webp">
+            <img src="assets/hero-core-poster.webp" width="480" height="480" alt="" draggable="false" />
+            <span class="hero-core-frames" aria-hidden="true"></span>
+          </button>
+          <p class="hero-core-caption"><span class="hero-core-led" aria-hidden="true"></span> DRAG / TAP TO SPIN <span aria-hidden="true">↔</span></p>
+        </div>
+      </section>
+
+      <section class="projects" id="projects" data-nav-section aria-labelledby="projects-title">
+        <button class="rabbit-hole rabbit-left" type="button" data-rabbit aria-hidden="true" aria-label="Catch the rabbit" tabindex="-1"><img class="rabbit" src="assets/rabbit-peek.webp" width="360" height="359" alt="" /><span class="hole"></span></button>
+        <div class="projects-shell">
+          <div class="section-heading">
+            <h2 id="projects-title">Selected projects</h2>
+            <span class="section-rule" aria-hidden="true"></span>
+            <p>A few things I’ve built</p>
+          </div>
+
+          <p class="project-prompt">
+            <span>Inside each project</span>
+            A real preview, the decisions behind it, and a direct way to try it.
+          </p>
+
+          <!-- Project claims are kept deliberately close to the public repository READMEs. -->
+          <div class="project-grid">
+            <article class="project-card">
+              <details class="project-disclosure">
+                <summary>
+                  <span class="project-card-top">
+                    <span class="project-number">01</span>
+                    <span class="project-category">Error monitoring</span>
+                  </span>
+                  <h3>Faultwing</h3>
+                  <span class="project-summary">
+                    Self-hosted error monitoring service built in Go.
+                  </span>
+                  <span class="project-trace" aria-hidden="true">FOR UPDATE SKIP LOCKED</span>
+                  <span class="project-explore">
+                    Explore project
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 5v14M6 13l6 6 6-6" />
+                    </svg>
+                  </span>
+                </summary>
+
+                <div class="project-details">
+                  <p class="project-detail-intro">
+                    <span>Why it exists</span>
+                    Catch bugs before they infest production.
+                  </p>
+
+                  <figure class="project-screenshot">
+                    <a href="assets/faultwing-dashboard.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Faultwing dashboard preview in a new tab"><img src="assets/faultwing-dashboard.webp" width="1280" height="762" loading="lazy" decoding="async" alt="Faultwing dashboard with the issue terrarium, issue list, and selected error details" /></a>
+                    <figcaption>Faultwing’s local demo dashboard</figcaption>
+                  </figure>
+
+                  <div class="project-visual">
+                    <p class="visual-label" id="faultwing-flow-label">
+                      From exception to issue
+                    </p>
+                    <ol class="project-flow" aria-labelledby="faultwing-flow-label">
+                      <li><span>01</span><strong>App / SDK</strong></li>
+                      <li><span>02</span><strong>Go API</strong></li>
+                      <li><span>03</span><strong>Worker</strong></li>
+                      <li><span>04</span><strong>Issue</strong></li>
+                    </ol>
+                  </div>
+
+                  <dl class="project-facts">
+                    <div>
+                      <dt>Built around</dt>
+                      <dd>
+                        A Go API and worker, PostgreSQL, a React dashboard, and
+                        small Go, Python, and Node.js clients.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Includes</dt>
+                      <dd>
+                        Error grouping, issue states, realtime dashboard
+                        refreshes, and stack-frame links for common editors.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Current scope</dt>
+                      <dd>
+                        An early-stage learning project. The local workflow is
+                        complete; production deployment and security hardening
+                        are not.
+                      </dd>
+                    </div>
+                  </dl>
+
+                </div>
+              </details>
+              <div class="project-actions">
+                <a href="https://github.com/Aduneer/Faultwing#explore-without-an-api" target="_blank" rel="noopener noreferrer">Try local demo <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+                <a href="https://github.com/Aduneer/Faultwing" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <details class="project-disclosure">
+                <summary>
+                  <span class="project-card-top">
+                    <span class="project-number">02</span>
+                    <span class="project-category">Terminal learning</span>
+                  </span>
+                  <h3>FlashTerm</h3>
+                  <span class="project-summary">
+                    A terminal study tool that makes you type the answer.
+                  </span>
+                  <span class="project-trace" aria-hidden="true">&gt;_ answer from memory</span>
+                  <span class="project-explore">
+                    Explore project
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 5v14M6 13l6 6 6-6" />
+                    </svg>
+                  </span>
+                </summary>
+
+                <div class="project-details">
+                  <p class="project-detail-intro">
+                    <span>Why it exists</span>
+                    No multiple choice and no self-grading: produce the answer,
+                    or keep working on it.
+                  </p>
+
+                  <figure class="project-screenshot project-screenshot-terminal">
+                    <a href="assets/flashterm-demo.gif" target="_blank" rel="noopener noreferrer" aria-label="Watch the full FlashTerm demo in a new tab"><img src="assets/flashterm-poster.webp" width="900" height="600" loading="lazy" decoding="async" alt="FlashTerm review showing a Spanish vocabulary card, typed answer, and correct result" /></a>
+                    <figcaption>A real review session · click to watch the demo</figcaption>
+                  </figure>
+
+                  <div class="project-visual">
+                    <p class="visual-label" id="review-schedule-label">
+                      Five-box review schedule
+                    </p>
+                    <ol class="review-track" aria-labelledby="review-schedule-label">
+                      <li><span>Box 1</span><strong>1 day</strong></li>
+                      <li><span>Box 2</span><strong>3 days</strong></li>
+                      <li><span>Box 3</span><strong>7 days</strong></li>
+                      <li><span>Box 4</span><strong>14 days</strong></li>
+                      <li><span>Box 5</span><strong>30 days</strong></li>
+                    </ol>
+                  </div>
+
+                  <dl class="project-facts">
+                    <div>
+                      <dt>Built around</dt>
+                      <dd>
+                        A C++17 terminal application using plain-text decks and
+                        no third-party dependencies.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Includes</dt>
+                      <dd>
+                        Leitner scheduling, reverse review, typo tolerance,
+                        hints, undo, tags, and progress statistics.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Deck format</dt>
+                      <dd>
+                        Custom CSV decks, cloze deletion, and optional image or
+                        audio support without a required service account.
+                      </dd>
+                    </div>
+                  </dl>
+
+                </div>
+              </details>
+              <div class="project-actions">
+                <a href="https://github.com/Aduneer/FlashTerm/blob/main/demo/demo.gif" target="_blank" rel="noopener noreferrer">Watch demo <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+                <a href="https://github.com/Aduneer/FlashTerm" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+              </div>
+            </article>
+
+            <article class="project-card project-card-experiment">
+              <details class="project-disclosure">
+                <summary>
+                  <span class="project-card-top">
+                    <span class="project-number">03</span>
+                    <span class="project-category">Early experiment</span>
+                  </span>
+                  <h3>Fugazi</h3>
+                  <span class="project-summary">
+                    A tiny language model that borrows the rhythm of a text
+                    corpus, one word at a time.
+                  </span>
+                  <span class="project-trace" aria-hidden="true">order = 2 · seed = 1</span>
+                  <span class="project-explore">
+                    Explore project
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 5v14M6 13l6 6 6-6" />
+                    </svg>
+                  </span>
+                </summary>
+
+                <div class="project-details">
+                  <p class="project-detail-intro">
+                    <span>Why it exists</span>
+                    An early step into AI and ML: seeing what a small,
+                    understandable text model can generate.
+                  </p>
+
+                  <figure class="project-screenshot project-screenshot-code">
+                    <div class="fugazi-terminal">
+                      <div class="fugazi-terminal-bar" aria-hidden="true"><span></span><span></span><span></span><strong>FUGAZI / SAMPLE RUN</strong></div>
+                      <pre><code><span>$</span> python -m fugazi --seed 1 --sentences 3
+We built a platform. Platforms are wonderful because they can do anything.</code></pre>
+                    </div>
+                    <figcaption>Excerpt from a reproducible run on the bundled sample corpus</figcaption>
+                  </figure>
+
+                  <div class="project-visual">
+                    <p class="visual-label" id="fugazi-flow-label">From corpus to sentence</p>
+                    <ol class="project-flow" aria-labelledby="fugazi-flow-label">
+                      <li><span>01</span><strong>Corpus</strong></li>
+                      <li><span>02</span><strong>Tokens</strong></li>
+                      <li><span>03</span><strong>Contexts</strong></li>
+                      <li><span>04</span><strong>Next word</strong></li>
+                    </ol>
+                  </div>
+
+                  <dl class="project-facts">
+                    <div>
+                      <dt>Mechanism</dt>
+                      <dd>
+                        A word-level Markov chain that samples from the words
+                        observed after each context in the corpus.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Includes</dt>
+                      <dd>
+                        Seeded repeatable runs, a cache keyed to corpus
+                        metadata, and clear errors for unusable input.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Scope</dt>
+                      <dd>
+                        A classical n-gram experiment that runs on Python's
+                        standard library, with its limitations documented.
+                      </dd>
+                    </div>
+                  </dl>
+
+                </div>
+              </details>
+              <div class="project-actions">
+                <a href="https://github.com/Aduneer/Fugazi-bot#usage" target="_blank" rel="noopener noreferrer">Run locally <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+                <a href="https://github.com/Aduneer/Fugazi-bot" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+              </div>
+            </article>
+          </div>
+          <button class="rabbit-hole rabbit-inline" type="button" data-rabbit aria-hidden="true" aria-label="Catch the rabbit" tabindex="-1"><img class="rabbit" src="assets/rabbit-peek.webp" width="360" height="359" alt="" /><span class="hole"></span></button>
+          <div class="more-work">
+            <span>More work</span>
+            <a href="https://github.com/Aduneer/FlatScorer" target="_blank" rel="noopener noreferrer">FlatScorer <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a href="https://github.com/Aduneer/gruber-darker-obsidian" target="_blank" rel="noopener noreferrer">Gruber Darker for Obsidian <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a href="https://github.com/Aduneer?tab=repositories" target="_blank" rel="noopener noreferrer">All repositories <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="interlude" id="notes" data-nav-section aria-labelledby="interlude-title">
+        <button class="rabbit-hole rabbit-right" type="button" data-rabbit aria-hidden="true" aria-label="Catch the rabbit" tabindex="-1"><img class="rabbit" src="assets/rabbit-peek.webp" width="360" height="359" alt="" /><span class="hole"></span></button>
+        <div class="signal-strip" aria-hidden="true">
+          <div class="signal-track">
+            <div class="signal-group">
+              <span>Build small</span><i>✦</i>
+              <span>Break it</span><i>✦</i>
+              <span>Read the source</span><i>✦</i>
+              <span>Follow the signal</span><i>✦</i>
+              <span>Ask why</span><i>✦</i>
+              <span>Keep learning</span><i>✦</i>
+              <span>Try again</span><i>✦</i>
+              <span>Make it better</span><i>✦</i>
+            </div>
+            <div class="signal-group">
+              <span>Build small</span><i>✦</i>
+              <span>Break it</span><i>✦</i>
+              <span>Read the source</span><i>✦</i>
+              <span>Follow the signal</span><i>✦</i>
+              <span>Ask why</span><i>✦</i>
+              <span>Keep learning</span><i>✦</i>
+              <span>Try again</span><i>✦</i>
+              <span>Make it better</span><i>✦</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="interlude-shell">
+          <div class="interlude-kicker reveal">
+            <p>Field notes</p>
+            <span>Decisions behind the demos</span>
+          </div>
+
+          <h2 id="interlude-title" class="reveal" style="--reveal-delay: 80ms">
+            From question<br />
+            <span>to working system.</span>
+          </h2>
+
+          <div class="field-notes">
+            <article class="field-note reveal" style="--reveal-delay: 120ms">
+              <div class="field-note-index"><span>01 / Faultwing</span><span aria-hidden="true">↗</span></div>
+              <div class="field-note-line" aria-hidden="true"><span></span><span></span><span></span></div>
+              <h3>Let the worker do the grouping.</h3>
+              <p>An incoming exception becomes a durable PostgreSQL job. A Go worker fingerprints and groups it into an issue; workers can claim jobs concurrently with <code>FOR UPDATE SKIP LOCKED</code>. The dashboard refreshes from the authoritative API.</p>
+              <a href="https://github.com/Aduneer/Faultwing/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">Read the architecture <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            </article>
+
+            <article class="field-note reveal" style="--reveal-delay: 190ms">
+              <div class="field-note-index"><span>02 / Fugazi</span><span aria-hidden="true">↗</span></div>
+              <div class="field-note-chain" aria-hidden="true"><span>two words</span><i>→</i><span>weighted choice</span><i>→</i><span>next word</span></div>
+              <h3>The chain remembers only its previous words.</h3>
+              <p>Fugazi counts what follows each short context, then samples a path through those transitions. Starting at sentence openings and fixing the random seed make the output easier to read and reproduce. It was one of the experiments that drew me into language modeling.</p>
+              <a href="https://github.com/Aduneer/Fugazi-bot#how-it-works" target="_blank" rel="noopener noreferrer">Read how it works <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            </article>
+          </div>
+
+          <details class="signal-cache reveal">
+            <summary>
+              <span class="signal-cache-led" aria-hidden="true"></span>
+              <span>Open signal cache</span>
+              <span class="signal-cache-spec">640 × 480 / 16 colors</span>
+              <span class="signal-cache-arrow" aria-hidden="true">+</span>
+            </summary>
+            <div class="signal-cache-screen">
+              <p class="signal-cache-command"><span aria-hidden="true">&gt;</span> build / learn / repeat</p>
+              <p>A small nod to Terry A. Davis and the handmade world of <a href="https://templeos.org/" target="_blank" rel="noopener noreferrer">TempleOS<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
+              <p class="signal-cache-echo">the pixels glow in the dark<span aria-hidden="true">_</span></p>
+            </div>
+          </details>
+          <button class="rabbit-hole rabbit-inline" type="button" data-rabbit aria-hidden="true" aria-label="Catch the rabbit" tabindex="-1"><img class="rabbit" src="assets/rabbit-peek.webp" width="360" height="359" alt="" /><span class="hole"></span></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-shell">
+        <div class="footer-invite reveal">
+          <div>
+            <p class="eyebrow">Next rabbit hole</p>
+            <h2>Something interesting nearby?</h2>
+          </div>
+          <a
+            class="footer-cta"
+            href="https://github.com/Aduneer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Find me on GitHub</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 19 19 5M8 5h11v11" />
+            </svg>
+            <span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </div>
+
+        <div class="footer-meta">
+          <p>© <span id="year">2026</span> Aduneer</p>
+          <p class="footer-annotation"><span>ESC[36m</span> / EOF? not yet.</p>
+          <p>Curiosity compiles. <span class="footer-cursor" aria-hidden="true"></span></p>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="info-dialog" id="about-dialog" aria-labelledby="about-title">
+      <div class="dialog-shell">
+        <form method="dialog">
+          <button class="dialog-close" type="submit" aria-label="Close about dialog">×</button>
+        </form>
+        <picture>
+          <source
+            type="image/webp"
+            srcset="assets/aduneer-avatar-teal-176.webp 176w, assets/aduneer-avatar-teal-264.webp 264w"
+            sizes="88px"
+          />
+          <img
+            class="dialog-avatar"
+            src="assets/aduneer-avatar-teal.png"
+            width="176"
+            height="176"
+            alt="Aduneer's robot avatar"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <p class="eyebrow">Still following the rabbit hole</p>
+        <h2 id="about-title">Curious about how things work.</h2>
+        <p>
+          I love learning, and building is how I make it stick. I try things,
+          break them, understand why, and make the next version better.
+        </p>
+        <p>
+          Right now I’m exploring Go, C++, Python, data, AI, systems, and
+          operating systems. There is no fixed niche — just the next
+          interesting problem.
+        </p>
+        <a
+          class="dialog-link"
+          href="https://github.com/Aduneer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          More on GitHub
+          <span class="visually-hidden"> (opens in a new tab)</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3 13 13 3M5 3h8v8" />
+          </svg>
+        </a>
+      </div>
+    </dialog>
+
+  </body>
+</html>

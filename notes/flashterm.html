@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A note on FlashTerm, typing answers from memory, and building a terminal study tool around active recall." />
+    <meta name="theme-color" content="#e9f2ed" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Make the answer come from memory — Aduneer" />
+    <meta property="og:description" content="FlashTerm tests the difference between recognizing an answer and producing it from memory." />
+    <meta property="og:url" content="https://aduneer.github.io/notes/flashterm.html" />
+    <meta property="og:image" content="https://aduneer.github.io/assets/aduneer-social-teal-1200.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://aduneer.github.io/notes/flashterm.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="../assets/adwaita-sans.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../notes.css" />
+    <script src="../script.js" defer></script>
+    <title>Make the answer come from memory — Aduneer</title>
+  </head>
+  <body class="note-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="nav-shell">
+        <a class="brand" href="../index.html#home" aria-label="Aduneer home"><img class="brand-mark" src="../assets/brand-mark-teal.webp" width="120" height="180" alt="" /><span class="brand-name">Aduneer</span></a>
+        <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+        <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
+          <a href="../index.html#home">Home</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../learning.html">Learning</a>
+          <a href="index.html" aria-current="page">Notes</a>
+          <a href="#about-dialog" data-dialog-open="about-dialog">About</a>
+          <a class="external-link" href="https://github.com/Aduneer" target="_blank" rel="noopener noreferrer">GitHub <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 9.5 9 3M4 2.5h5.5V8" /></svg><span class="visually-hidden"> (opens in a new tab)</span></a>
+        </nav>
+      </div>
+      <div class="level-track" data-level-track aria-hidden="true"><div class="level-track-inner"><span class="level-track-fill" data-track-fill></span><span class="level-stop" style="--stop: 33%"><i>01</i></span><span class="level-stop" style="--stop: 66%"><i>02</i></span><span class="level-finish">NEXT LEVEL ↗</span><span class="mascot-runner" data-runner><img src="../assets/mascot-runner-teal.webp" width="807" height="900" alt="" /></span></div></div>
+    </header>
+
+    <main id="main-content">
+      <article>
+        <header class="note-hero">
+          <div class="notebook-shell">
+            <nav class="notebook-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="index.html">Notes</a><span aria-hidden="true">/</span><span aria-current="page">FlashTerm</span></nav>
+            <div class="note-hero-content">
+              <p class="notebook-eyebrow"><span class="notebook-led" aria-hidden="true"></span> Personal note / 002</p>
+              <h1>Make the answer<br /><em>come from memory.</em></h1>
+              <p class="note-deck">FlashTerm is a terminal study tool built around one small distinction: recognizing an answer is easier than producing it.</p>
+              <div class="note-byline"><span>Aduneer</span><span aria-hidden="true">✦</span><span>About 3 min</span></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="notebook-shell note-reading-layout">
+          <aside class="note-rail" aria-label="On this page"><p>In this note</p><nav><a href="#recognition">Recognition and recall</a><a href="#design">A deliberate constraint</a><a href="#schedule">The review loop</a><a href="#building">What I keep learning</a></nav><span class="note-rail-mark">signal / 002</span></aside>
+          <div class="note-prose">
+            <p class="note-intro">I can look at a word on a flashcard, see four possible answers, and feel sure I know it. Ask me to type the answer with the options gone, and that confidence gets tested. FlashTerm starts at that gap.</p>
+
+            <h2 id="recognition">Recognition and recall</h2>
+            <p>The main interaction is plain: show a prompt, wait for a typed answer, then reveal the result. There is no multiple choice and no button for “I probably knew that.” If I cannot produce the answer, I have found something to review.</p>
+            <p>That makes a study session a little less comfortable, but much more informative. The tool is intentionally small enough that the question stays in front of me rather than getting buried under the interface.</p>
+
+            <h2 id="design">A deliberate constraint</h2>
+            <p>FlashTerm runs in a terminal and uses plain-text decks. It is a C++17 application with no third-party dependencies. I like that a deck is something I can keep, edit, and move without an account or a service standing between me and the material.</p>
+            <p>The focused interaction is the core, but real study has edges: a typo should not always count as forgetting, some prompts need a hint, and sometimes I need to undo a mistaken review. Those details make a simple idea feel usable day to day.</p>
+
+            <h2 id="schedule">The review loop</h2>
+            <p>Cards move through five boxes with longer gaps between reviews: one, three, seven, fourteen, then thirty days. The schedule gives a concrete answer to “what should I review next?” without asking me to manage it by hand.</p>
+            <div class="note-flow" role="img" aria-label="A FlashTerm review starts with a prompt, asks for a typed answer, and schedules the next review"><div><span>01</span><strong>Prompt</strong><small>see the question</small></div><i aria-hidden="true">→</i><div><span>02</span><strong>Recall</strong><small>type the answer</small></div><i aria-hidden="true">→</i><div><span>03</span><strong>Review</strong><small>schedule the next try</small></div></div>
+            <p>The boxes are a practical structure, not a promise that learning follows a perfect calendar. The important thing is returning to an answer after enough time has passed that I actually have to retrieve it again.</p>
+
+            <h2 id="building">What I keep learning</h2>
+            <p>FlashTerm began as a straightforward terminal tool and grew more complex as I added the details around a review session. That has been part of the lesson too: even a small application has to make choices about files, feedback, mistakes, and what the user sees next.</p>
+            <p>I keep coming back to the same principle while working on it: make the useful action easy to repeat. In this case, that action is answering from memory.</p>
+
+            <div class="note-end"><p>End of note <span aria-hidden="true">✦</span> More to learn.</p><div><a href="index.html">← All notes</a><a href="../index.html#project-flashterm">Explore FlashTerm</a><a href="https://github.com/Aduneer/FlashTerm" target="_blank" rel="noopener noreferrer">Source ↗<span class="visually-hidden"> (opens in a new tab)</span></a></div></div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer"><div class="footer-shell"><div class="footer-invite reveal"><div><p class="eyebrow">Keep in touch</p><h2>Something interesting nearby?</h2></div><a class="footer-cta" href="https://github.com/Aduneer" target="_blank" rel="noopener noreferrer"><span>Find me on GitHub</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" /></svg><span class="visually-hidden"> (opens in a new tab)</span></a></div><div class="footer-meta"><p>© <span id="year">2026</span> Aduneer</p><p class="footer-annotation"><span>ESC[36m</span> / EOF? not yet.</p><p>Curiosity compiles. <span class="footer-cursor" aria-hidden="true"></span></p></div></div></footer>
+
+    <dialog class="info-dialog" id="about-dialog" aria-labelledby="about-title"><div class="dialog-shell"><form method="dialog"><button class="dialog-close" type="submit" aria-label="Close about dialog">×</button></form><picture><source type="image/webp" srcset="../assets/aduneer-avatar-teal-176.webp 176w, ../assets/aduneer-avatar-teal-264.webp 264w" sizes="88px" /><img class="dialog-avatar" src="../assets/aduneer-avatar-teal.png" width="176" height="176" alt="Aduneer's robot avatar" loading="lazy" decoding="async" /></picture><p class="eyebrow">About / ongoing</p><h2 id="about-title">Curious about how things work.</h2><p>I love learning, and building is how I make it stick. I try things, break them, understand why, and make the next version better.</p><p>Right now I’m exploring Go, C++, Python, data, AI, and systems. Side paths keep leading to tiny VMs, emulation, Linux from source, unusual networks, and old laptops with character.</p><a class="dialog-link" href="https://github.com/Aduneer" target="_blank" rel="noopener noreferrer">More on GitHub <span class="visually-hidden"> (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8" /></svg></a></div></dialog>
+  </body>
+</html>

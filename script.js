@@ -496,22 +496,132 @@
     updateTrack();
   }
 
+  const rabbitRewardCount = 3;
+  let caught = 0;
+  try { caught = Number(sessionStorage.getItem('aduneer-rabbits-caught')) || 0; } catch (_) { /* Storage is optional. */ }
+
+  const siteScript = document.querySelector('script[src$="script.js"]');
+  const rabbitHoleUrl = new URL('rabbit-hole.html', siteScript?.src || window.location.href);
+  const footerMeta = document.querySelector('.footer-meta');
+  let rabbitPortal = null;
+  if (footerMeta && !document.body.classList.contains('rabbit-page')) {
+    rabbitPortal = document.createElement('a');
+    rabbitPortal.className = 'rabbit-portal';
+    rabbitPortal.href = rabbitHoleUrl.href;
+    rabbitPortal.innerHTML = '<span class="rabbit-portal-signal" aria-hidden="true">✦</span><span>Rabbit hole found <small>open the side path</small></span><span aria-hidden="true">↗</span>';
+    rabbitPortal.hidden = caught < rabbitRewardCount;
+    footerMeta.before(rabbitPortal);
+  }
+
   const rabbits = Array.from(document.querySelectorAll('[data-rabbit]'));
   if (rabbits.length) {
     let rabbitTimer = 0;
     let hideTimer = 0;
     let toastTimer = 0;
+    let pixelTimer = 0;
+    let gateTimer = 0;
     let activeRabbit = null;
     let lastRabbit = null;
-    let caught = 0;
-    try { caught = Number(sessionStorage.getItem('aduneer-rabbits-caught')) || 0; } catch (_) { /* Storage is optional. */ }
-
+    let rewardGate = null;
+    const rabbitHint = document.createElement('span');
+    rabbitHint.className = 'rabbit-peek-hint';
+    rabbitHint.textContent = finePointerQuery.matches ? 'Psst · click to catch' : 'Psst · tap to catch';
+    rabbitHint.setAttribute('aria-hidden', 'true');
+    rabbitHint.hidden = true;
+    const pixelLayer = document.createElement('div');
+    pixelLayer.className = 'rabbit-pixel-layer';
+    pixelLayer.setAttribute('aria-hidden', 'true');
     const toast = document.createElement('div');
     toast.className = 'rabbit-catch-toast';
-    toast.setAttribute('role', 'status');
-    toast.setAttribute('aria-live', 'polite');
-    toast.setAttribute('aria-atomic', 'true');
-    document.body.append(toast);
+    const toastMessage = document.createElement('span');
+    toastMessage.setAttribute('role', 'status');
+    toastMessage.setAttribute('aria-live', 'polite');
+    toastMessage.setAttribute('aria-atomic', 'true');
+    const toastLink = document.createElement('a');
+    toastLink.href = rabbitHoleUrl.href;
+    toastLink.textContent = 'Enter ↗';
+    toastLink.hidden = true;
+    toastLink.tabIndex = -1;
+    toast.append(toastMessage, toastLink);
+    document.body.append(rabbitHint, pixelLayer, toast);
+
+    const positionHint = () => {
+      if (!activeRabbit || caught > 0) {
+        rabbitHint.hidden = true;
+        return;
+      }
+      const bounds = activeRabbit.getBoundingClientRect();
+      if (!bounds.width || !bounds.height || bounds.bottom < 0 || bounds.top > window.innerHeight) {
+        rabbitHint.hidden = true;
+        return;
+      }
+      const x = Math.max(90, Math.min(window.innerWidth - 90, bounds.left + bounds.width / 2));
+      const above = bounds.top > (header?.getBoundingClientRect().bottom ?? 0) + 48;
+      rabbitHint.style.left = `${x}px`;
+      rabbitHint.style.top = `${above ? bounds.top - 35 : bounds.bottom + 7}px`;
+      rabbitHint.hidden = false;
+    };
+
+    const scatterPixels = (bounds, destination) => {
+      if (reducedMotionQuery.matches) return;
+      window.clearTimeout(pixelTimer);
+      pixelLayer.replaceChildren();
+      const originX = bounds.left + bounds.width / 2;
+      const originY = bounds.top + bounds.height * .43;
+      const colors = ['#e8ffef', '#9eede2', '#51c9c8', '#247f84'];
+      for (let index = 0; index < 22; index += 1) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = 18 + Math.random() * 56;
+        const x = originX + Math.cos(angle) * radius;
+        const y = originY + Math.sin(angle) * radius * .7;
+        const pixel = document.createElement('i');
+        pixel.className = 'rabbit-pixel';
+        pixel.style.left = `${x}px`;
+        pixel.style.top = `${y}px`;
+        pixel.style.setProperty('--dx', `${destination.x - x}px`);
+        pixel.style.setProperty('--dy', `${destination.y - y}px`);
+        pixel.style.setProperty('--delay', `${Math.round(Math.random() * 170)}ms`);
+        pixel.style.setProperty('--size', `${index % 4 === 0 ? 6 : 4}px`);
+        pixel.style.setProperty('--tone', colors[index % colors.length]);
+        pixelLayer.append(pixel);
+      }
+      pixelTimer = window.setTimeout(() => pixelLayer.replaceChildren(), 1200);
+    };
+
+    const closeRewardGate = () => {
+      if (!rewardGate) return;
+      if (rewardGate.matches(':hover') || rewardGate === document.activeElement) {
+        gateTimer = window.setTimeout(closeRewardGate, 1800);
+        return;
+      }
+      const closingGate = rewardGate;
+      rewardGate = null;
+      closingGate.classList.remove('is-open');
+      window.setTimeout(() => closingGate.remove(), reducedMotionQuery.matches ? 0 : 260);
+    };
+
+    const openRewardGate = (x, y) => {
+      rewardGate?.remove();
+      window.clearTimeout(gateTimer);
+      rewardGate = document.createElement('a');
+      rewardGate.className = 'rabbit-reward-gate';
+      rewardGate.href = rabbitHoleUrl.href;
+      rewardGate.style.left = `${x}px`;
+      rewardGate.style.top = `${y}px`;
+      rewardGate.innerHTML = '<span aria-hidden="true">✦</span><strong>Rabbit hole</strong><small>Enter ↗</small>';
+      document.body.append(rewardGate);
+      window.requestAnimationFrame(() => rewardGate?.classList.add('is-open'));
+      gateTimer = window.setTimeout(closeRewardGate, 12000);
+    };
+
+    const hideToast = () => {
+      if (toast.contains(document.activeElement)) {
+        toastTimer = window.setTimeout(hideToast, 2000);
+        return;
+      }
+      toast.classList.remove('is-visible');
+      toastLink.tabIndex = -1;
+    };
 
     const hideRabbit = () => {
       if (activeRabbit) {
@@ -521,6 +631,7 @@
         if (document.activeElement === activeRabbit) activeRabbit.blur();
       }
       activeRabbit = null;
+      rabbitHint.hidden = true;
     };
 
     const placeRabbit = (rabbit) => {
@@ -564,6 +675,7 @@
           activeRabbit.setAttribute('aria-hidden', 'false');
           activeRabbit.setAttribute('aria-keyshortcuts', 'R');
           activeRabbit.tabIndex = 0;
+          positionHint();
           const expireRabbit = () => {
             if (document.activeElement === activeRabbit) {
               hideTimer = window.setTimeout(expireRabbit, 1000);
@@ -572,7 +684,7 @@
             hideRabbit();
             scheduleRabbit();
           };
-          hideTimer = window.setTimeout(expireRabbit, reducedMotionQuery.matches ? 10000 : 3200);
+          hideTimer = window.setTimeout(expireRabbit, reducedMotionQuery.matches ? 10000 : caught === 0 ? 5200 : 3200);
         } else {
           scheduleRabbit();
         }
@@ -582,13 +694,27 @@
     const catchRabbit = (rabbit) => {
       if (rabbit !== activeRabbit || rabbit.classList.contains('is-caught')) return;
       window.clearTimeout(hideTimer);
+      const bounds = rabbit.getBoundingClientRect();
       rabbit.classList.add('is-caught');
       caught += 1;
+      rabbitHint.hidden = true;
       try { sessionStorage.setItem('aduneer-rabbits-caught', String(caught)); } catch (_) { /* Storage is optional. */ }
-      toast.textContent = `Rabbit caught · ${caught} total`;
+      const justUnlocked = caught === rabbitRewardCount;
+      const originX = bounds.left + bounds.width / 2;
+      const originY = bounds.top + bounds.height * .43;
+      const gateOffset = window.innerWidth > 600 ? (originX < window.innerWidth / 2 ? 112 : -112) : 0;
+      const gateX = Math.max(82, Math.min(window.innerWidth - 82, originX + gateOffset));
+      const gateY = Math.max(115, Math.min(window.innerHeight - 110, originY - 8));
+      scatterPixels(bounds, justUnlocked ? { x: gateX, y: gateY } : { x: originX, y: originY });
+      if (justUnlocked) window.setTimeout(() => openRewardGate(gateX, gateY), reducedMotionQuery.matches ? 0 : 740);
+      if (rabbitPortal && caught >= rabbitRewardCount) rabbitPortal.hidden = false;
+      toastMessage.textContent = justUnlocked ? 'A rabbit hole opened · 3 caught' : caught < rabbitRewardCount ? `Rabbit caught · ${caught}/${rabbitRewardCount}` : `Rabbit caught · ${caught} total`;
+      toastLink.hidden = caught < rabbitRewardCount;
+      toastLink.tabIndex = caught >= rabbitRewardCount ? 0 : -1;
+      toast.classList.toggle('has-reward', caught >= rabbitRewardCount);
       toast.classList.add('is-visible');
       window.clearTimeout(toastTimer);
-      toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2700);
+      toastTimer = window.setTimeout(hideToast, justUnlocked ? 10000 : caught >= rabbitRewardCount ? 5000 : 2700);
       activeRabbit = null;
       window.setTimeout(() => {
         rabbit.classList.remove('is-peeking', 'is-caught');
@@ -600,6 +726,8 @@
     };
 
     rabbits.forEach((rabbit) => rabbit.addEventListener('click', () => catchRabbit(rabbit)));
+    window.addEventListener('scroll', positionHint, { passive: true });
+    window.addEventListener('resize', positionHint);
     document.addEventListener('keydown', (event) => {
       if (!activeRabbit || event.key.toLowerCase() !== 'r' || event.altKey || event.ctrlKey || event.metaKey) return;
       if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable]')) return;

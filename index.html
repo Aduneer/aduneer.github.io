@@ -32,6 +32,7 @@
       imagesizes="100vw"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="notes.css" />
     <script src="script.js" defer></script>
     <title>Aduneer — Build. Explore. Figure it out.</title>
   </head>
@@ -175,7 +176,7 @@
 
           <!-- Project claims are kept deliberately close to the public repository READMEs. -->
           <div class="project-grid">
-            <article class="project-card">
+            <article class="project-card" id="project-faultwing">
               <details class="project-disclosure">
                 <summary>
                   <span class="project-card-top">
@@ -251,7 +252,7 @@
               </div>
             </article>
 
-            <article class="project-card">
+            <article class="project-card" id="project-flashterm">
               <details class="project-disclosure">
                 <summary>
                   <span class="project-card-top">
@@ -328,7 +329,7 @@
               </div>
             </article>
 
-            <article class="project-card project-card-experiment">
+            <article class="project-card project-card-experiment" id="project-fugazi">
               <details class="project-disclosure">
                 <summary>
                   <span class="project-card-top">
@@ -473,6 +474,16 @@ We built a platform. Platforms are wonderful because they can do anything.</code
             </article>
           </div>
 
+          <aside class="notebook-doorway reveal" aria-label="Personal blog">
+            <span class="notebook-led" aria-hidden="true"></span>
+            <div>
+              <p>Writing / ongoing</p>
+              <h3>Notes on building and learning.</h3>
+              <span>Posts about what I’m building, learning, and trying to understand.</span>
+            </div>
+            <a href="notes/">Read the blog <span aria-hidden="true">↗</span></a>
+          </aside>
+
           <details class="signal-cache reveal">
             <summary>
               <span class="signal-cache-led" aria-hidden="true"></span>
@@ -495,7 +506,7 @@ We built a platform. Platforms are wonderful because they can do anything.</code
       <div class="footer-shell">
         <div class="footer-invite reveal">
           <div>
-            <p class="eyebrow">Next rabbit hole</p>
+            <p class="eyebrow">Keep in touch</p>
             <h2>Something interesting nearby?</h2>
           </div>
           <a
@@ -541,16 +552,16 @@ We built a platform. Platforms are wonderful because they can do anything.</code
             decoding="async"
           />
         </picture>
-        <p class="eyebrow">Still following the rabbit hole</p>
+        <p class="eyebrow">About / ongoing</p>
         <h2 id="about-title">Curious about how things work.</h2>
         <p>
           I love learning, and building is how I make it stick. I try things,
           break them, understand why, and make the next version better.
         </p>
         <p>
-          Right now I’m exploring Go, C++, Python, data, AI, systems, and
-          operating systems. There is no fixed niche — just the next
-          interesting problem.
+          Right now I’m exploring Go, C++, Python, data, AI, and systems. Side
+          paths keep leading to tiny VMs, emulation, Linux from source,
+          unusual networks, and old laptops with character.
         </p>
         <a
           class="dialog-link"

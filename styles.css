@@ -1490,6 +1490,10 @@ img {
     box-shadow 180ms ease;
 }
 
+.footer-cta-copy { display: grid; gap: 3px; }
+.footer-cta-copy strong { font: inherit; }
+.footer-cta-copy small { color: #a9d5d2; font-size: 0.75rem; font-weight: 600; }
+
 .footer-cta svg {
   width: 21px;
   height: 21px;
@@ -1644,6 +1648,9 @@ img {
   stroke: currentColor;
   stroke-width: 1.2;
 }
+
+.dialog-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 28px; }
+.dialog-actions .dialog-link { margin-top: 0; }
 
 @keyframes signal-loop {
   to {

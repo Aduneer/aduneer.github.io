@@ -374,7 +374,21 @@
       heroCore.classList.add('is-static');
       heroSpin.disabled = true;
     };
-    sprite.src = heroSpin.dataset.sprite;
+    // The sprite sheet is ~1 MB, so fetch it once the page has settled (or as
+    // soon as someone reaches for the core) instead of racing the hero image.
+    const loadSprite = () => {
+      if (sprite.src) return;
+      sprite.src = heroSpin.dataset.sprite;
+    };
+    ['pointerenter', 'pointerdown', 'focus'].forEach((type) => {
+      heroSpin.addEventListener(type, loadSprite, { once: true });
+    });
+    if (!navigator.connection?.saveData) {
+      const whenIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 1200));
+      const queueSpriteLoad = () => whenIdle(loadSprite, { timeout: 4000 });
+      if (document.readyState === 'complete') queueSpriteLoad();
+      else window.addEventListener('load', queueSpriteLoad, { once: true });
+    }
 
     heroSpin.addEventListener('pointerdown', (event) => {
       if (heroSpin.disabled || (event.pointerType === 'mouse' && event.button !== 0)) return;

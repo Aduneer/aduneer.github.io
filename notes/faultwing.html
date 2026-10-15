@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A note on Faultwing, a self-hosted error monitor: a durable job queue in PostgreSQL, workers that claim jobs with SKIP LOCKED, and notifications that only nudge." />
+    <meta name="theme-color" content="#f3efe6" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Let the worker do the grouping — Aduneer" />
+    <meta property="og:description" content="Faultwing accepts an exception quickly, then lets a worker do the real work." />
+    <meta property="og:url" content="https://aduneer.github.io/notes/faultwing.html" />
+    <meta property="og:image" content="https://aduneer.github.io/assets/aduneer-social-teal-1200.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://aduneer.github.io/notes/faultwing.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="../assets/iosevka-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../assets/adwaita-sans.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../styles.css" />
+    <title>Let the worker do the grouping — Aduneer</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="../index.html" aria-label="Aduneer home"><img class="brand-mark" src="../assets/brand-mark-teal.webp" width="120" height="180" alt="" /><span class="brand-name">Aduneer</span></a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="../index.html#projects">Projects</a>
+          <a href="index.html" aria-current="true">Notes</a>
+          <a href="../learning.html">Learning</a>
+          <a href="../index.html#about">About</a>
+          <a href="https://github.com/Aduneer" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <article>
+        <header class="note-hero">
+          <div class="wrap">
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="index.html">Notes</a><span aria-hidden="true">/</span><span aria-current="page">Faultwing</span></nav>
+            <h1>Let the worker do the grouping.</h1>
+            <p class="note-deck">Faultwing is a self-hosted error monitor and my Boot.dev capstone. Most of its backend follows from one decision: accept an exception quickly, and do the real work later.</p>
+            <p class="note-byline label">Aduneer · About 3 min</p>
+          </div>
+        </header>
+
+        <div class="wrap note-reading-layout">
+          <aside class="note-rail" aria-label="On this page"><p class="label">In this note</p><nav><a href="#accepted">Accepted is not grouped</a><a href="#queue">The queue is a table</a><a href="#nudge">Notifications only nudge</a><a href="#not-done">What isn’t done</a></nav></aside>
+          <div class="note-prose">
+            <p class="note-intro">On paper, an error monitor has a simple job: take in exceptions, notice which ones are the same bug, and show them as issues. Most of the interesting decisions in Faultwing sit between “take in” and “show.”</p>
+
+            <h2 id="accepted">Accepted is not grouped</h2>
+            <p>When an application sends an exception to <code>POST /api/v1/events</code>, the API validates it, writes a row to an <code>event_jobs</code> table, and answers <code>202 Accepted</code>. That status means one specific thing: the event is safely stored in PostgreSQL. It does not mean the event has been grouped yet.</p>
+            <p>Keeping the request that small means ingestion never waits on the slower part of the work, and an event that was accepted is already durable before anything else happens to it.</p>
+
+            <h2 id="queue">The queue is a table</h2>
+            <p>Faultwing has no separate message broker. PostgreSQL is both the system of record and the job queue. A Go worker claims one job at a time with <code>FOR UPDATE SKIP LOCKED</code>, which lets several workers run side by side without two of them taking the same job.</p>
+            <p>Once a worker holds a job, it does the rest in one transaction:</p>
+            <ol>
+              <li>fingerprint the exception within its project,</li>
+              <li>create or update the matching issue,</li>
+              <li>record the individual event,</li>
+              <li>publish a PostgreSQL <code>NOTIFY</code>,</li>
+              <li>and delete the finished job.</li>
+            </ol>
+            <p>If something fails, the job stays in the table. Its attempt count goes up and it is retried with exponential backoff, capped at five minutes. Using the database that was already there kept the moving parts few, and it made the questions a queue has to answer concrete: who owns this job, what happens when it fails, and how do you know it is done?</p>
+
+            <h2 id="nudge">Notifications only nudge</h2>
+            <p>The dashboard updates live, but the notification carries almost nothing: a project ID and an issue ID. The API forwards it over a WebSocket, and the dashboard reacts by refetching from the API. If a notification goes missing, nothing is lost, because PostgreSQL is still the source of truth.</p>
+            <p>One detail shaped that code more than I expected: browsers cannot attach an <code>Authorization</code> header to a WebSocket. So the dashboard connects first and sends its session token as the first message, and the server checks it, along with project ownership, before subscribing the connection.</p>
+
+            <h2 id="not-done">What isn’t done</h2>
+            <p>Faultwing runs well locally, but it is not ready for the public internet. There are no production containers or reverse-proxy and TLS guidance yet, rate limits live inside a single API process, and failed jobs retry forever without a dead-letter queue. Those gaps are the next milestone: a documented deployment path.</p>
+            <p>The backend is the part I set out to learn. The dashboard, including the terrarium where unresolved issues live as insects, was built with substantial AI assistance, and the README says so.</p>
+
+            <div class="note-end"><a class="text-link" href="index.html"><span aria-hidden="true">←</span> All notes</a><a class="text-link" href="../index.html#project-faultwing">Explore Faultwing</a><a class="text-link" href="https://github.com/Aduneer/Faultwing/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">Full architecture doc <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a><a class="text-link" href="https://github.com/Aduneer/Faultwing" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <h2>Say hello</h2>
+            <p>Questions, ideas, or something you’re building. Email is the best way to reach me.</p>
+          </div>
+          <a class="footer-email" href="mailto:aduneer@proton.me">aduneer@proton.me</a>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Aduneer</p>
+          <nav aria-label="Elsewhere">
+            <a href="https://github.com/Aduneer" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a href="https://www.boot.dev/u/aduneer" target="_blank" rel="noopener noreferrer">Boot.dev <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+          </nav>
+          <abbr title="The 55 AA signature at the end of a legacy boot sector">55 AA</abbr>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
